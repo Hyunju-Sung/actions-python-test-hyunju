@@ -1,0 +1,17 @@
+name: 'actions-python-test'
+description: 'actions-python-test'
+inputs:
+  test-framework:  # id of input
+    description: 'test-framework (pytest, unittest, djangotest)'
+    required: true
+    default: 'pytest'
+runs:
+  using: "composite"
+  steps:
+    - name: Python Build Test
+      if: inputs.test-framework == 'pytest'
+      uses: pavelzw/pytest-action@v2
+      with:
+        emoji: false
+        verbose: false
+        job-summary: true
