@@ -7,15 +7,11 @@ inputs:
     default: 'pytest'
 runs:
   using: "composite"
-  strategy:
-    matrix:
-      python-version: [ "3.6", "3.7", "3.8", "3.9" ]
-      
   steps:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.9
     - name: Install dependencies
       run: pip install pytest pytest-md pytest-emoji
       shell: bash
