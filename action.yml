@@ -2,7 +2,7 @@ name: 'actions-python-test'
 description: 'actions-python-test'
 inputs:
   test-framework:  # id of input
-    description: 'test-framework (pytest, unittest, djangotest)'
+    description: 'test-framework (pytest, unittest, djangotest) '
     required: true
     default: 'pytest'
 runs:
