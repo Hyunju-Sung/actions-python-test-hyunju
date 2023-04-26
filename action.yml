@@ -13,21 +13,19 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ inputs.python-version }}
+    
+    - name: Install Poetry
+      run: pipx install "poetry==1.2.1"
 
-    - name: Install dependencies (poetry)
-      if: inputs.test-framework == 'poetry pytest'
-      run: |
-        python -m pip install --upgrade pip
-        pip install poetry
-        poetry install
-      shell: bash
+    - uses: actions/setup-python@v4
+      with:
+          python-version: '3.11'
+          cache: 'poetry'
+
+    - run: poetry install
 
     - name: Python Build Test (poetry)
-      if: inputs.test-framework == 'poetry pytest'
+      if: ${{ inputs.test-framework }} == 'poetry pytest'
       uses: pavelzw/pytest-action@v2
       with:
         emoji: false
