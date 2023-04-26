@@ -1,10 +1,23 @@
 name: 'actions-python-test'
 description: 'actions-python-test'
 inputs:
-  test-framework:  # id of input
-    description: 'test-framework (pytest, unittest, djangotest) '
+  emoji:
+    description: 'emoji'
+    required: true
+    default: false
+  verbose:
+    description: 'verbose'
+    required: true
+    default: false
+  job-summary:
+    description: 'job-summary'
+    required: true
+    default: false
+  custom-pytest:
+    description: 'custom-pytest'
     required: true
     default: 'pytest'
+
 runs:
   using: "composite"
   steps:
@@ -12,16 +25,16 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.9
+
     - name: Install dependencies
       run: pip install pytest pytest-md pytest-emoji
       shell: bash
+
     - name: Python Build Test
       if: inputs.test-framework == 'pytest'
       uses: pavelzw/pytest-action@v2
       with:
-        verbose: true
-        emoji: true
-        job-summary: true
-        custom-arguments: '-q'
-        click-to-expand: true
-        report-title: 'Test Report'
+        emoji: false
+        verbose: false
+        job-summary: false
+        custom-pytest: 'poetry run pytest -vv --cache-clear'
