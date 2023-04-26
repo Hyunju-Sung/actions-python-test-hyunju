@@ -13,9 +13,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    
+
     - name: Install Poetry
       run: pipx install "poetry==1.2.1"
+      shell: bash
 
     - uses: actions/setup-python@v4
       with:
@@ -23,6 +24,7 @@ runs:
           cache: 'poetry'
 
     - run: poetry install
+      shell: bash
 
     - name: Python Build Test (poetry)
       if: ${{ inputs.test-framework }} == 'poetry pytest'
