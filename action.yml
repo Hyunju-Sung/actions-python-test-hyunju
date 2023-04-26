@@ -5,6 +5,10 @@ inputs:
     description: 'python version'
     required: true
     default: '3.11'
+  poetry-version:
+    description: 'poetry version'
+    required: false
+    default: '1.4.2'
   test-framework:
     description: 'test-framework (pytest, poetry pytest, django test)'
     required: true
@@ -15,7 +19,7 @@ runs:
   steps:
 
     - name: Install Poetry
-      run: pipx install "poetry==1.2.1"
+      run: pipx install "poetry==${{ inputs.poetry-version }}"
       shell: bash
 
     - uses: actions/setup-python@v4
