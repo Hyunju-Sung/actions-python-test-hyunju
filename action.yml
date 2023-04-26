@@ -1,25 +1,12 @@
 name: 'actions-python-test'
 description: 'actions-python-test'
 inputs:
+  python-version:
+    description: 'python version'
+    required: true
+    default: '3.11'
   test-framework:
     description: 'test-framework (pytest, poetry pytest, django test)'
-    required: true
-    default: 'pytest'
-
-  emoji:
-    description: 'emoji'
-    required: true
-    default: false
-  verbose:
-    description: 'verbose'
-    required: true
-    default: false
-  job-summary:
-    description: 'job-summary'
-    required: true
-    default: false
-  custom-pytest:
-    description: 'custom-pytest'
     required: true
     default: 'pytest'
 
@@ -29,17 +16,21 @@ runs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
-        python-version: 3.9
+        python-version: inputs.python-version
 
-    - name: Install dependencies
-      run: pip install pytest pytest-md pytest-emoji
+    - name: Install dependencies (poetry)
+      if: inputs.test-framework == 'poetry pytest'
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install
       shell: bash
 
-    - name: Python Build Test
+    - name: Python Build Test (poetry)
       if: inputs.test-framework == 'poetry pytest'
       uses: pavelzw/pytest-action@v2
       with:
-        emoji: true
+        emoji: false
         verbose: false
         job-summary: false
         custom-pytest: 'poetry run pytest -vv --cache-clear'
