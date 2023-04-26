@@ -1,6 +1,11 @@
 name: 'actions-python-test'
 description: 'actions-python-test'
 inputs:
+  test-framework:
+    description: 'test-framework (pytest, poetry pytest, django test)'
+    required: true
+    default: 'pytest'
+
   emoji:
     description: 'emoji'
     required: true
@@ -31,7 +36,7 @@ runs:
       shell: bash
 
     - name: Python Build Test
-      if: inputs.test-framework == 'pytest'
+      if: inputs.test-framework == 'poetry pytest'
       uses: pavelzw/pytest-action@v2
       with:
         emoji: true
