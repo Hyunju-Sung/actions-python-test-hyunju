@@ -34,7 +34,7 @@ runs:
       if: inputs.test-framework == 'pytest'
       uses: pavelzw/pytest-action@v2
       with:
-        emoji: false
+        emoji: true
         verbose: false
         job-summary: false
         custom-pytest: 'poetry run pytest -vv --cache-clear'
