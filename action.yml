@@ -17,8 +17,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-
-    - uses: actions/setup-python@v4
+    
+    - name: Install Python ${{ inputs.python-version }}
+      uses: actions/setup-python@v4
       with:
           python-version: ${{ inputs.python-version }}
 
